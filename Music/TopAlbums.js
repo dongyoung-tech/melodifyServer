@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 export async function getAlbums(a) {
     const apiKey = "fd21466e97d2deb5d38ef2c24e8a05b6";
-    const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=tag.getTopAlbums&tag=${a}&api_key=${apiKey}&format=json&limit=5`;
+    const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=tag.getTopAlbums&tag=${a}&api_key=${apiKey}&format=json&limit=4`;
     console.log(apiUrl);
     try {
       const response =await fetch(apiUrl, {
