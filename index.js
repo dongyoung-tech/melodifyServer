@@ -14,10 +14,13 @@ import loginRouter from './Member/login.js';
 import {getArtists} from "./Music/TopArtist.js";
 import commentRouter from './Repl/ReplRegister.js';
 import ReplRouter from "./Repl/ReplList.js";
+import DeleteRouter from "./Repl/ReplDelete.js";
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use('/uploads', express.static('uploads'));
 
 function sendResponse(req, res, promise) {
     promise
@@ -77,6 +80,8 @@ app.use('/login', loginRouter);
 app.use('/repl-insert', commentRouter);
 
 app.use('/repl-list', ReplRouter);
+
+app.use('/repl-delete', DeleteRouter);
 
 app.get('/', (req, res) => {
     res.send('gd');
