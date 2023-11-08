@@ -2,20 +2,20 @@ import express from 'express'
 const app = express();
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import setGlobalMiddleware from "middlewares/Middlewares.js";
+import applyRoutes  from "routes/index.js";
 import { getKeywordData } from './keyword/keyword.js';
 const port = 3001;
 import {getYoutubeData} from './keyword/youtube.js';
 import {getAlbumData} from './keyword/Album.js';
 import {getBlogData} from "./keyword/Blog.js";
-import { getDetailInfo, getDetailAlbum, getDetail } from './keyword/Detail.js';
-import {getAlbums} from "./Music/TopAlbums.js";
+import MusicRouter from "./Music/Music-Router.js";
+import {getDetail } from './keyword/Detail.js';
 import { handleRegister, upload } from './Member/register.js';
 import loginRouter from './Member/login.js';
-import {getArtists} from "./Music/TopArtist.js";
-import commentRouter from './Repl/ReplRegister.js';
-import ReplRouter from "./Repl/ReplList.js";
-import DeleteRouter from "./Repl/ReplDelete.js";
-
+import ReplRouter from "./Repl/ReplRouter.js";
+import CartRouter from "./Cart/Cart-Router.js";
+import PlayListRouter from "./PlayList/PlayList-Router.js";
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -32,9 +32,8 @@ function sendResponse(req, res, promise) {
             res.status(500).send('Error fetching data');
         });
 }
-
-
-
+setGlobalMiddleware(app); // 별도 파일에서 전역 미들웨어 적용
+applyRoutes(app);
 
 app.get('/keyword/:key', (req, res) => {
     const q = req.query;
@@ -63,25 +62,17 @@ app.get('/blog/:key', (req, res) => {
     console.log(q);
 });
 
-app.get('/topalbum/:key', (req, res) => {
-    const q = req.query;
-    sendResponse(req, res, getAlbums(q.cat));
-});
-
-app.get('/topartist/:key', (req, res) => {
-    const q = req.query;
-    sendResponse(req, res, getArtists(q.cat));
-});
-
 app.post('/register', upload.single('profile'), handleRegister);
 
 app.use('/login', loginRouter);
 
-app.use('/repl-insert', commentRouter);
+app.use('/repl', ReplRouter);
 
-app.use('/repl-list', ReplRouter);
+app.use('/cart', CartRouter);
 
-app.use('/repl-delete', DeleteRouter);
+app.use('/music', MusicRouter);
+
+app.use('/play-list', PlayListRouter);
 
 app.get('/', (req, res) => {
     res.send('gd');
