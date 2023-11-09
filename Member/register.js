@@ -21,9 +21,25 @@ const pool = mariadb.createPool({
   connectionLimit: 5 
 });
 
-const handleRegister = (req, res) => {
+const handleRegister = async(req, res) => {
 
   const { id, pass, name } = req.body;
+  try {
+    const conn = await pool.getConnection();
+    const duplicateCheck = await conn.query("SELECT * FROM member WHERE id = ?", [id]);
+    const duplicateNameCheck = await conn.query("SELECT * FROM member WHERE name = ?", [name]);
+    conn.release();
+
+    if (duplicateCheck.length > 0) {
+      return res.status(200).json({ message: '이미 사용중인 아이디 입니다' });
+    }
+    else if(duplicateNameCheck.length>0){
+      return res.status(200).json({ message: '이미 사용중인 닉네임 입니다' });
+    }
+  } catch (error) {
+    console.error('Error while checking for duplicate ID:', error);
+    return res.status(500).send('Error while checking for duplicate ID.');
+  }
 
   let profileImagePath ="null";
   if(req.file) profileImagePath = 'uploads/' + req.file.filename; // 프로필 이미지 파일 경로

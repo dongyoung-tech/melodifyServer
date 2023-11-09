@@ -16,7 +16,10 @@ const router = Router();
 router.post('/', async (req, res) => {
   try {
     const conn = await pool.getConnection();
-    const rows = await conn.query("SELECT * FROM PlayList");
+    const { user } = req.body;
+    const rows = user ? await conn.query("SELECT * FROM PlayList where user=?",[user]):
+                        await conn.query("SELECT * FROM PlayList");
+
     conn.release();
     if (rows.length > 0) {
       return res.status(200).json({ message: 'success' , rows:rows });
