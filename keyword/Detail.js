@@ -2,7 +2,6 @@ import fetch from 'node-fetch';
 
 export const getDetailInfo = async (a, b) => {
   const apiUrl = `https://api.discogs.com/${a}/${b}?token=HcVqtKhsFiqQmuwdDbpnRAfZQYjpwWRkYkAlWDxh`;
-  console.log(apiUrl);
   try {
     const response = await fetch(apiUrl, {
       method: 'GET',
@@ -21,7 +20,6 @@ export const getDetailInfo = async (a, b) => {
 
 export const getDetailAlbum = async (a, b) => {
   const apiUrl = `https://api.discogs.com/${a}/${b}/releases?token=HcVqtKhsFiqQmuwdDbpnRAfZQYjpwWRkYkAlWDxh`;
-  console.log(apiUrl);
   try {
     const response = await fetch(apiUrl, {
       method: 'GET',

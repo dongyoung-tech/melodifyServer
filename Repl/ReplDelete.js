@@ -23,7 +23,6 @@ Replrouter.post('/', async (req, res) => {
   try {
     const conn = await pool.getConnection();
     const result = await conn.query("DELETE  FROM Repl WHERE num=?", [num]);
-    console.log(result);
     conn.release();
     res.status(200).json({ message: 'Comment deleted successfully' });
   } catch (error) {

@@ -28,7 +28,6 @@ router.post('/', async (req, res) => {
     const query = 'INSERT INTO PlayList (user,info,intro,registDay,name) VALUES (?,?,?,?,?)';
     const result = await conn.query(query, [user, JSON.stringify(info), intro, date,name]);
     conn.release();
-    console.log(result);
     res.status(200).json({ message: 'successful' });
   } catch (error) {
     console.error('Error inserting comment:', error);

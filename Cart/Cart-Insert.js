@@ -25,7 +25,6 @@ SongInsertRouter.post('/', async (req, res) => {
         const jsonInfo = JSON.stringify(info);
       const result = await conn.query(query, [userid, jsonInfo]);
       conn.release();
-      console.log('결과',result);
       res.status(200).json({ message: 'successful' });
     } catch (error) {
       console.error('Error inserting Song:', error);

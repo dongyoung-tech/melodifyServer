@@ -33,7 +33,6 @@ SongRouter.post('/', async (req, res) => {
       result = await conn.query(query, [jsonInfo,userid]);
     }
     conn.release();
-    console.log(result);
     res.status(200).json({ message: 'successful' });
   } catch (error) {
     console.error('Error inserting Song:', error);

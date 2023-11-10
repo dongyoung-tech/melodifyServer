@@ -38,28 +38,23 @@ applyRoutes(app);
 app.get('/keyword/:key', (req, res) => {
     const q = req.query;
     sendResponse(req, res, getKeywordData(q.key,q.cat));
-    console.log(q);
 });
 app.get('/Detail/:key', (req, res) => {
     const q = req.query;
     sendResponse(req, res, getDetail(q.cat,q.key));
-    console.log("detail",q);
 });
 
 app.get('/album/:key', (req, res) => {
     const q = req.query;
-    console.log(q);
     sendResponse(req, res, getAlbumData(q.key));
 });
 app.get('/youtube/:id', (req, res) => {
     const q = req.query;
     sendResponse(req, res, getYoutubeData(q.key));
-    console.log(q);
 });
 app.get('/blog/:key', (req, res) => {
     const q = req.query;
     sendResponse(req, res, getBlogData(q.key));
-    console.log(q);
 });
 
 app.post('/register', upload.single('profile'), handleRegister);

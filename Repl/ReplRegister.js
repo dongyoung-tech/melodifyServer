@@ -28,7 +28,6 @@ commentRouter.post('/', async (req, res) => {
     const query = 'INSERT INTO Repl (id, name, content,  parent , category , profile,date) VALUES (?,?, ?, ? , ?, ?,?)';
     const result = await conn.query(query, [id, name, content, parent ,category,profile,date]);
     conn.release();
-    console.log(result);
     res.status(200).json({ message: 'Comment inserted successfully' });
   } catch (error) {
     console.error('Error inserting comment:', error);
