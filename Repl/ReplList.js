@@ -23,7 +23,7 @@ Replrouter.post('/', async (req, res) => {
 
   try {
     const conn = await pool.getConnection();
-    const rows = await conn.query("SELECT * FROM Repl WHERE parent = ? AND category = ?", [parent, cat]);
+    const rows = await conn.query("SELECT * FROM Repl WHERE parent = ? AND category = ? order by num desc", [parent, cat]);
     conn.release();
     if (rows.length > 0) {
       return res.status(200).json({ message: 'success' , rows:rows });

@@ -17,8 +17,8 @@ router.post('/', async (req, res) => {
   try {
     const conn = await pool.getConnection();
     const { user } = req.body;
-    const rows = user ? await conn.query("SELECT * FROM PlayList where user=?",[user]):
-                        await conn.query("SELECT * FROM PlayList");
+    const rows = user ? await conn.query("SELECT * FROM PlayList where user=?  order by num desc",[user]):
+                        await conn.query("SELECT * FROM PlayList order by num desc");
 
     conn.release();
     if (rows.length > 0) {
