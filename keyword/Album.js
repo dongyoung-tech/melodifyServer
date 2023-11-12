@@ -1,7 +1,6 @@
 import fetch from 'node-fetch'
 export async function getAlbumData(a) {
     const apiUrl = `https://api.discogs.com/releases/${a}?token=HcVqtKhsFiqQmuwdDbpnRAfZQYjpwWRkYkAlWDxh`;
-    console.log(apiUrl);
     try {
       const response =await fetch(apiUrl, {
         method: 'GET',
