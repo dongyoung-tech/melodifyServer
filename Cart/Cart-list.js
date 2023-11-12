@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
 
   try {
     const conn = await pool.getConnection();
-    const rows = await conn.query("SELECT * FROM Cart WHERE user = ? order", [id]);
+    const rows = await conn.query("SELECT * FROM Cart WHERE user = ?", [id]);
 
     conn.release();
     if (rows.length > 0) {
