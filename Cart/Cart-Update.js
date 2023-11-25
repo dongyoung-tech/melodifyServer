@@ -14,9 +14,8 @@ const SongRouter = express.Router();
 
 SongRouter.post('/', async (req, res) => {
   const { userid,  info} = req.body;
-  console.log("업뎃",req.body)
   const jsonInfo = JSON.stringify(info);
-  if (!userid ||  !info) {
+  if (!userid || !info) {
     return res.status(400).json({ message: 'Please provide all required fields' });
   }
 
